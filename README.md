@@ -54,7 +54,3 @@ The workflow will automatically trigger whenever new code is pushed to the main 
 ## Contributing
 
 Contributions to this repository are welcome! Feel free to submit pull requests or raise issues for any improvements or bug fixes.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).

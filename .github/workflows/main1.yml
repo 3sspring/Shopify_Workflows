@@ -1,0 +1,42 @@
+name: Theme deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Deploy Shopify theme using Docker
+      - name: Deploy using Docker
+        run: |
+          docker run --rm \
+            -e SHOPIFY_PASSWORD=${{ secrets.SHOPIFY_PASSWORD }} \
+            -e SHOPIFY_STORE_URL=${{ secrets.SHOPIFY_STORE_URL }} \
+            -e SHOPIFY_THEME_ID=${{ secrets.SHOPIFY_THEME_ID }} \
+            -e THEME_PATH=${{ secrets.THEME_PATH }} \
+            -v $PWD:/app \
+            -w /app \
+            ruby:2.7 bash -c "\
+            gem install themekit && \
+            themekit update && \
+            themekit --version"
+
+      # Deploy Shopify theme using pgrimaud/action-shopify
+      - name: Deploy Shopify theme
+        uses: pgrimaud/action-shopify@2.2.2
+        env:
+          SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_PASSWORD }}
+          SHOPIFY_STORE_URL: ${{ secrets.SHOPIFY_STORE_URL }}
+          SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_THEME_ID }}
+          THEME_PATH: ${{ secrets.THEME_PATH }}
+        with:
+          args: --ignored-file=config/settings_data.json --ignored-file=locales/*

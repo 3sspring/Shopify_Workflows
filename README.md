@@ -12,5 +12,3 @@ SHOPIFY_STORE_URL: Your Shopify store URL.
 SHOPIFY_THEME_ID: The theme ID on your Shopify store.
 
 THEME_PATH: The path of your theme in your GitHub repository.
-
-The workflow is designed to deploy your Shopify theme to different environments (staging, preproduction, and production) using the pgrimaud/action-shopify action. It's worth noting that the action is used to deploy the theme to various environments, and the configuration seems to be geared towards handling different stages of development.

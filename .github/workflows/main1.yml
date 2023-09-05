@@ -1,4 +1,4 @@
-name: Theme deploy
+name: Theme workflow
 
 on:
   push:
